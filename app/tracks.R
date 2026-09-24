@@ -1,3 +1,4 @@
+library(tidyverse)
 library(shiny)
 library(bslib)
 library(sf)
@@ -38,7 +39,7 @@ server <- function (input, output) {
   # GPS
   focal.gps <- reactive({
     
-    gps |> filter(track_season_post == focal.tsp()) |>
+    gps |> filter(track_season_post %in% focal.tsp()) |>
     
     st_as_sf(coords = c("lon", "lat"), crs = "epsg:4326")
     
@@ -49,7 +50,7 @@ server <- function (input, output) {
     
     hr |> 
     
-    filter(trck_s_ == focal.tsp() & contour == "full") |>
+    filter(trck_s_ %in% focal.tsp() & contour == "full") |>
     
     st_transform(crs = "epsg:4326")
     
@@ -59,7 +60,7 @@ server <- function (input, output) {
     
     hr |> 
     
-    filter(trck_s_ == focal.tsp() & contour == "core") |>
+    filter(trck_s_ %in% focal.tsp() & contour == "core") |>
     
     st_transform(crs = "epsg:4326")
   
